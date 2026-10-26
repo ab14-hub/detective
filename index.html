@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tettegylet – havi bűnügyi játék 9–15 éveseknek</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Figtree:wght@400;600&family=Permanent+Marker&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F1E4;--ink:#12153A;--soft:#E9E1CC;--yel:#FFE81A;--red:#E8452C;--muted:#5d5a52;--paper:#FCFAF3;--pink:#12153A;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10122B;--ink:#F3ECD8;--soft:#1B1E42;--muted:#b9b4a4}}
+:root[data-theme="dark"]{--bg:#10122B;--ink:#F3ECD8;--soft:#1B1E42;--muted:#b9b4a4}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.06rem/1.65 Figtree,system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+h1,h2,h3{font-family:'Bricolage Grotesque',Impact,sans-serif;line-height:1.05;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:800}
+p{margin:0 0 1em}
+a{color:inherit}
+.w{max-width:1160px;margin:0 auto;padding:0 24px}
+.hand{font-family:Caveat,cursive;font-weight:600;color:var(--red);font-size:1.5rem;line-height:1.1}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:2px solid var(--ink)}
+.hb{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font:1.55rem 'Permanent Marker',cursive;text-decoration:none;letter-spacing:.02em;transform:rotate(-1.5deg)}
+nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;align-items:center}
+nav a{text-decoration:none;font-weight:600;font-size:.95rem}
+nav a:hover{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:3px;text-underline-offset:5px}
+.btn{display:inline-block;text-decoration:none;font:800 1rem 'Bricolage Grotesque',sans-serif;letter-spacing:.04em;padding:15px 28px;border:2.5px solid #12153A;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn.p{background:var(--yel);color:#12153A;box-shadow:5px 5px 0 #12153A}
+.btn.p:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #12153A}
+.btn.s{background:transparent;color:var(--ink);border-color:var(--ink);border-style:dashed}
+.btn.s:hover{background:var(--soft)}
+nav .btn{padding:9px 18px;font-size:.9rem;box-shadow:3px 3px 0 #12153A}
+.mt{display:none;background:none;border:2px solid var(--ink);color:var(--ink);font:600 .95rem Figtree;padding:8px 14px;cursor:pointer}
+/* hero */
+.hero{padding:56px 0 90px;overflow:hidden;position:relative}
+.hero::before{content:"";position:absolute;right:-8%;top:-10%;width:62%;height:120%;background:var(--yel);transform:rotate(4deg);z-index:0;opacity:.95}
+.hg{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center;position:relative;z-index:1}
+.brand{font:clamp(3rem,8vw,6.2rem)/.95 'Permanent Marker',cursive;margin:0 0 20px;transform:rotate(-2deg);transform-origin:left}
+.lead{font:500 clamp(1.15rem,2vw,1.4rem)/1.45 'Bricolage Grotesque',sans-serif;max-width:30em}
+.price{display:inline-block;background:#12153A;color:#FFE81A;padding:10px 16px;margin:6px 0 26px;font-weight:600;transform:rotate(-1deg)}
+.btns{display:flex;gap:16px;flex-wrap:wrap}
+.scene{position:relative;height:640px}
+.photo{position:absolute;background:#fff;padding:10px;box-shadow:0 14px 28px rgba(10,12,40,.3)}
+.photo.torn{padding:0;background:none;box-shadow:none;filter:drop-shadow(0 10px 14px rgba(10,12,40,.35))}
+.photo svg{display:block;width:100%;height:100%}
+.f1{left:12%;top:24px;width:66%;height:470px;transform:rotate(-1.5deg)}
+.f2{left:-4%;top:300px;width:34%;height:190px;transform:rotate(-3deg);z-index:3}
+.f3{left:-3%;bottom:0;width:36%;height:220px;transform:rotate(2deg);z-index:3}
+.f4{left:35%;bottom:-6px;width:28%;height:200px;transform:rotate(-1deg);z-index:4}
+.f5{right:-3%;bottom:20px;width:40%;height:190px;transform:rotate(3deg);z-index:3}
+.f2,.f3,.f4,.f5{border:0}
+.tape{position:absolute;width:110px;height:32px;background:rgba(255,232,26,.62);border-left:2px dotted rgba(0,0,0,.15);border-right:2px dotted rgba(0,0,0,.15);z-index:5}
+.note{position:absolute;z-index:6}
+.stamp{position:absolute;z-index:6;border:3px solid var(--red);color:var(--red);font:800 .95rem 'Bricolage Grotesque';padding:3px 10px;transform:rotate(-8deg);background:rgba(252,250,243,.85)}
+/* torn */
+.torn{clip-path:polygon(0 3%,6% 0,14% 2%,23% 0,35% 3%,47% 0,58% 2%,70% 0,82% 3%,92% 0,100% 2%,99% 30%,100% 58%,98% 100%,88% 97%,76% 100%,63% 98%,50% 100%,37% 97%,24% 100%,10% 98%,0 100%,1% 70%,0 40%)}
+.grain{position:relative}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(18,21,58,.28) 1px,transparent 1.2px);background-size:5px 5px;mix-blend-mode:multiply;opacity:.35}
+/* about */
+section{padding:96px 0}
+.about{background:var(--bg)}
+.ag{display:grid;grid-template-columns:repeat(12,1fr);gap:28px 24px;margin-top:10px}
+.a1{grid-column:1/9;font:800 clamp(1.7rem,3.4vw,2.7rem)/1.15 'Bricolage Grotesque'}
+.a1 mark{background:linear-gradient(transparent 55%,var(--yel) 55%);color:inherit}
+.a2{grid-column:6/13;background:var(--paper);color:#12153A;padding:30px;border:2px solid #12153A;position:relative;transform:rotate(.8deg)}
+.a2::before{content:"";position:absolute;width:20px;height:60px;border:3px solid #9a9a9a;border-radius:12px;top:-26px;left:30px;transform:rotate(8deg)}
+.a3{grid-column:1/6;background:var(--yel);color:#12153A;padding:22px 26px;font:800 1.35rem/1.25 'Bricolage Grotesque';transform:rotate(-1.5deg);align-self:start}
+.a4{grid-column:7/13;padding-left:22px;border-left:5px solid var(--red);font-size:1.15rem}
+/* process */
+.proc{background:var(--soft)}
+.proc .intro{max-width:46em;margin:18px 0 56px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative;counter-reset:s}
+.steps::before{content:"";position:absolute;left:5%;right:5%;top:92px;border-top:3px dashed var(--red);z-index:0}
+.step{position:relative;z-index:1;background:var(--paper);color:#12153A;padding:16px 16px 22px;border:2px solid #12153A;box-shadow:6px 6px 0 rgba(18,21,58,.85)}
+.step:nth-child(even){margin-top:34px}
+.step .vis{height:150px;background:#EFE8D2;margin-bottom:14px;display:grid;place-items:center;overflow:hidden}
+.step .vis svg{width:100%;height:100%}
+.num{font:800 2.6rem 'Bricolage Grotesque';line-height:1;color:var(--red)}
+.step h3{font-size:1.3rem;margin:4px 0 10px}
+.step p{font-size:.94rem;line-height:1.55;margin:0}
+/* ages */
+.ages .h{max-width:900px}
+.ages .d{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin:28px 0 48px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.age{background:var(--paper);color:#12153A;padding:30px 26px 34px;border:2.5px solid #12153A;position:relative;min-height:230px}
+.age .big{font:800 3.6rem/1 'Bricolage Grotesque'}
+.age .big small{font-size:1.4rem}
+.age .tag{font:1.35rem Caveat;color:var(--red);margin-top:12px}
+.age .bars{display:flex;gap:6px;margin-top:22px}
+.age .bars i{flex:1;height:10px;border:2px solid #12153A}
+.age .bars i.on{background:var(--yel)}
+.age:nth-child(1){transform:rotate(-1.2deg)}.age:nth-child(2){transform:translateY(14px)}.age:nth-child(3){transform:rotate(1.2deg)}
+.key{margin:80px 0 20px;background:#12153A;color:#FFE81A;padding:44px 36px;position:relative;font:800 clamp(1.7rem,4vw,3rem)/1.1 'Bricolage Grotesque';text-align:center}
+.key .hand{position:absolute;right:26px;bottom:-34px;color:var(--red);transform:rotate(-4deg)}
+.key u{text-decoration-color:var(--red);text-decoration-thickness:5px;text-underline-offset:8px}
+.sup{max-width:38em;margin:34px auto 0;text-align:center;color:var(--muted)}
+/* first case */
+.case{background:var(--yel);color:#12153A}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.file{background:var(--paper);padding:34px 30px;border:2px solid #12153A;position:relative;transform:rotate(1.5deg);box-shadow:8px 8px 0 #12153A}
+.file .tab{position:absolute;top:-22px;left:24px;background:#EFE8D2;border:2px solid #12153A;border-bottom:0;padding:3px 18px;font:800 .95rem 'Bricolage Grotesque'}
+.file dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:.98rem}
+.file dt{font-weight:600}.file dd{margin:0;border-bottom:1.5px dashed #999;min-height:1.4em}
+.file .ph{color:#777;font-style:italic}
+.case .btn.p{background:#12153A;color:#FFE81A;box-shadow:5px 5px 0 var(--red);border-color:#12153A}
+/* sub */
+.sub .box{display:grid;grid-template-columns:1.1fr .9fr;border:3px solid var(--ink);background:var(--paper);color:#12153A}
+.sub .l{padding:48px 44px}
+.sub .r{background:#12153A;color:#F6F1E4;padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:10px;background-image:radial-gradient(rgba(255,232,26,.14) 1px,transparent 1.3px);background-size:6px 6px}
+.sub ul{padding:0;margin:20px 0 0;list-style:none}
+.sub li{padding:9px 0 9px 34px;position:relative;border-bottom:1px solid #d9d1bb}
+.sub li::before{content:"";position:absolute;left:4px;top:15px;width:17px;height:9px;border-left:3px solid var(--red);border-bottom:3px solid var(--red);transform:rotate(-45deg)}
+.pr{font:800 clamp(2.6rem,5vw,3.8rem)/1 'Bricolage Grotesque';color:#FFE81A}
+/* behind */
+.beh{background:var(--soft)}
+.bg3{display:grid;grid-template-columns:1.2fr 1fr;gap:50px;margin-top:30px}
+.bq{font:800 1.8rem/1.2 'Bricolage Grotesque';padding-left:24px;border-left:6px solid var(--yel)}
+.phd{border:2.5px dashed var(--muted);padding:26px;color:var(--muted);background:repeating-linear-gradient(135deg,transparent 0 12px,rgba(120,110,80,.06) 12px 24px)}
+/* contact */
+.cf{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+form{display:grid;gap:16px}
+label{font-weight:600;display:grid;gap:6px}
+input,textarea{font:inherit;padding:13px 14px;border:2px solid var(--ink);background:var(--paper);color:#12153A;border-radius:0;width:100%}
+textarea{min-height:140px;resize:vertical}
+.ok{display:none;background:var(--yel);color:#12153A;padding:14px;font-weight:600;border:2px solid #12153A}
+footer{background:#12153A;color:#F6F1E4;padding:56px 0 40px}
+footer .fb{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px}
+footer ul{list-style:none;padding:0;margin:0;display:flex;gap:22px;flex-wrap:wrap}
+footer .logo{color:#FFE81A;font-size:2rem}
+footer small{display:block;margin-top:36px;opacity:.7}
+/* mobile */
+@media(max-width:960px){
+.mt{display:block}
+nav ul{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:2px solid var(--ink);padding:8px 24px 20px}
+nav ul.open{display:flex}
+nav li a{display:block;padding:14px 0;border-bottom:1px solid var(--soft);font-size:1.1rem}
+nav .btn{text-align:center;margin-top:14px;padding:14px}
+.hero::before{width:100%;right:-30%;top:40%;height:70%}
+.hg,.cg,.sub .box,.bg3,.cf,.ages .d{grid-template-columns:1fr}
+.scene{height:470px;margin-top:8px}
+.f1{height:330px;left:8%;width:78%}.f2{top:230px;height:120px}.f3{height:140px}.f4{height:130px;left:36%}.f5{height:120px}
+.steps{grid-template-columns:1fr;gap:26px;padding-left:26px;border-left:3px dashed var(--red)}
+.steps::before{display:none}.step:nth-child(even){margin-top:0}
+.cards{grid-template-columns:1fr}.age:nth-child(n){transform:none}
+.ag{display:block}.ag>*{margin-bottom:26px}.a2,.a3{transform:none}
+section{padding:68px 0}
+.sub .l,.sub .r{padding:34px 24px}
+.btns .btn{flex:1 1 100%;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="w hb">
+<a class="logo" href="#fooldal">TETTEGYLET</a>
+<button class="mt" aria-expanded="false" aria-controls="menu">Menü</button>
+<nav aria-label="Főmenü"><ul id="menu">
+<li><a href="#fooldal">Főoldal</a></li><li><a href="#rolunk">Rólunk</a></li><li><a href="#mogotte">Mi van mögötte</a></li><li><a href="#elso-ugy">Első ügy</a></li><li><a href="#elofizetes">Előfizetés</a></li><li><a href="#kapcsolat">Kapcsolat</a></li>
+<li><a class="btn p" href="#elofizetes">ELŐFIZETÉS</a></li></ul></nav>
+</div></header>
+
+<main>
+<section class="hero" id="fooldal" style="padding-top:56px"><div class="w hg">
+<div>
+<h1 class="brand">TETTEGYLET</h1>
+<p class="lead">Valós eseteken alapuló, havonta postázott könnyed bűnügyi játék 9-15 éveseknek, ahol ők irányítják a nyomozás menetét</p>
+<div class="price">4990 Ft / hónap + szállítás (990 Ft – 1990 Ft között)</div>
+<div class="btns"><a class="btn p" href="#elofizetes">ELŐFIZETÉS</a><a class="btn s" href="#elso-ugy">BELENÉZEK AZ ELSŐ ÜGYBE</a></div>
+</div>
+<div class="scene" aria-label="Nyomozati fotók: falusi utca, zárt ajtó, kerékpár, kutya, lezárt levél">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<pattern id="dt" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".9" fill="#12153A"/></pattern>
+<pattern id="dt2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="2" cy="2" r="1.3" fill="#12153A"/></pattern>
+<pattern id="tl" width="9" height="7" patternUnits="userSpaceOnUse"><path d="M0 6.5h9M4.5 0v6.5" stroke="#12153A" stroke-width="1.4" fill="none"/></pattern>
+<pattern id="sl" width="7" height="10" patternUnits="userSpaceOnUse"><path d="M1 0v10" stroke="#12153A" stroke-width="2"/></pattern>
+<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 .07 0 0 0 0 .08 0 0 0 0 .23 0 0 0 -2.2 1.25"/></filter>
+</defs></svg>
+
+<div class="photo f1"><div class="tape" style="left:-36px;top:18px;transform:rotate(-40deg)"></div><div class="tape" style="right:-38px;top:26px;transform:rotate(36deg)"></div>
+<svg viewBox="0 0 400 470" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Elhagyatott falusi utca">
+<rect width="400" height="470" fill="#F4E637"/>
+<rect width="400" height="200" fill="url(#dt)" opacity=".12"/>
+<g fill="#12153A" opacity=".16"><ellipse cx="90" cy="46" rx="80" ry="22"/><ellipse cx="260" cy="70" rx="110" ry="26"/><ellipse cx="350" cy="30" rx="60" ry="16"/></g>
+<!-- distant -->
+<g stroke="#12153A" stroke-width="2.5"><polygon points="215,238 262,206 312,238" fill="url(#tl)"/><rect x="224" y="238" width="80" height="46" fill="#FAF3A0"/><rect x="238" y="250" width="14" height="14" fill="#12153A"/><rect x="266" y="250" width="14" height="14" fill="#12153A"/></g>
+<ellipse cx="200" cy="205" rx="30" ry="14" fill="#12153A" opacity=".5"/>
+<!-- pole -->
+<g stroke="#12153A" stroke-width="4"><path d="M196 150v140"/><path d="M180 162h32" stroke-width="3"/></g><path d="M196 164C260 180 330 176 400 196M196 164C140 176 80 170 0 190" stroke="#12153A" stroke-width="1.3" fill="none"/>
+<!-- right houses -->
+<g stroke="#12153A" stroke-width="2.5"><polygon points="276,210 330,182 400,210 400,224 330,200 276,228" fill="url(#tl)"/><polygon points="276,226 400,222 400,330 276,310" fill="#FAF3A0"/><rect x="304" y="246" width="16" height="32" fill="#12153A"/><rect x="340" y="246" width="16" height="32" fill="#12153A"/><path d="M276 310h124v-14H276z" fill="url(#dt)"/></g>
+<!-- left big house -->
+<g stroke="#12153A" stroke-width="3"><polygon points="0,170 62,120 140,128 214,226 214,238 0,238" fill="#E4D63A"/><polygon points="8,150 70,106 150,116 218,226 180,236 120,150 8,196" fill="url(#tl)"/><polygon points="8,150 70,106 70,128 8,176" fill="#12153A" opacity=".35"/>
+<polygon points="0,236 0,380 190,372 214,290 214,236" fill="#FAF3A0"/><path d="M0 236L214 236" /><rect x="120" y="140" width="9" height="22" fill="#12153A"/><rect x="138" y="144" width="9" height="22" fill="#12153A"/>
+<g fill="#12153A"><rect x="74" y="262" width="26" height="62"/><rect x="118" y="262" width="26" height="62"/></g><g fill="none"><rect x="70" y="258" width="34" height="70"/><rect x="114" y="258" width="34" height="70"/></g>
+<path d="M0 340h214v34H0z" fill="url(#dt)" opacity=".5" stroke="none"/></g>
+<rect x="0" y="236" width="214" height="144" fill="url(#dt2)" opacity=".13"/>
+<!-- mid house + gate -->
+<g stroke="#12153A" stroke-width="2.5"><polygon points="156,262 214,232 240,300 156,304" fill="url(#tl)"/><rect x="170" y="296" width="60" height="70" fill="#12153A"/><path d="M170 296h60" /></g>
+<!-- fences -->
+<g stroke="#12153A" stroke-width="2.5"><path d="M0 380V318h50" fill="none"/><rect x="0" y="318" width="52" height="64" fill="url(#sl)"/><rect x="316" y="316" width="84" height="110" fill="#F4E637" opacity="0"/><path d="M318 400V282h82v118z" fill="url(#sl)" stroke="none"/><path d="M318 282h82" /></g>
+<!-- road -->
+<polygon points="168,372 238,372 292,470 100,470" fill="#E8DA43"/>
+<polygon points="168,372 100,470 0,470 0,380 188,372" fill="url(#dt)" opacity=".6"/>
+<polygon points="238,372 400,420 400,470 292,470" fill="url(#dt)" opacity=".7"/>
+<g stroke="#12153A" stroke-width="3" fill="none" opacity=".6"><path d="M188 380l-52 90M214 380l-14 90M226 380l44 90"/></g>
+<g fill="#12153A" opacity=".55"><ellipse cx="170" cy="430" rx="18" ry="5"/><ellipse cx="240" cy="452" rx="22" ry="6"/><ellipse cx="205" cy="402" rx="10" ry="3"/></g>
+<rect width="400" height="470" filter="url(#gr)" opacity=".55"/>
+</svg></div>
+
+<div class="photo f2 torn"><svg viewBox="0 0 200 180" role="img" aria-label="Ajtózár bekarikázva"><rect width="200" height="180" fill="#F4E637"/>
+<g stroke="#12153A" stroke-width="3"><rect x="-4" y="-4" width="74" height="190" fill="#D8C92F"/><rect x="70" y="-4" width="140" height="190" fill="#EADB3C"/></g><rect width="200" height="180" fill="url(#sl)" opacity=".22"/>
+<path d="M70 -4V186" stroke="#12153A" stroke-width="7"/>
+<g stroke="#12153A" stroke-width="3" fill="#FAF3A0"><rect x="30" y="64" width="30" height="40" rx="3"/><rect x="58" y="76" width="82" height="14" rx="2"/><rect x="128" y="68" width="14" height="30" rx="2"/></g>
+<g fill="#12153A"><circle cx="38" cy="72" r="3"/><circle cx="38" cy="96" r="3"/><path d="M92 116a9 9 0 1 1 12 0l-3 26H95z"/></g>
+<ellipse cx="86" cy="94" rx="72" ry="54" fill="none" stroke="#E8452C" stroke-width="6" transform="rotate(-12 86 94)"/>
+<rect width="200" height="180" fill="url(#dt2)" opacity=".14"/></svg></div>
+
+<div class="photo f3 torn"><svg viewBox="0 0 220 220" role="img" aria-label="Kerékpár a falnak támasztva"><rect width="220" height="220" fill="#F4E637"/>
+<path d="M0 60h220v160H0z" fill="#FAF3A0" stroke="#12153A" stroke-width="3"/><path d="M0 60h220v160H0z" fill="url(#dt2)" opacity=".16"/>
+<path d="M50 80l24-10 14 14-30 12zM70 100l30-6" fill="#12153A" opacity=".5"/><rect x="132" y="70" width="46" height="110" fill="#12153A" opacity=".8"/>
+<path d="M0 190h220v30H0z" fill="url(#dt)" opacity=".55"/>
+<g fill="none" stroke="#12153A" stroke-width="3"><circle cx="60" cy="158" r="40"/><circle cx="60" cy="158" r="36" stroke-width="1"/><circle cx="148" cy="158" r="40"/><circle cx="148" cy="158" r="36" stroke-width="1"/>
+<path d="M60 158L90 108H128L148 158M90 108L112 158H60M128 108L112 158" stroke-width="4"/><path d="M122 100l8-12h18M84 108l-6-14h22" stroke-width="5"/>
+<path d="M60 118v80M20 158h80M32 130l56 56M88 130l-56 56M148 118v80M108 158h80M120 130l56 56M176 130l-56 56" stroke-width=".8"/></g>
+</svg></div>
+
+<div class="photo f4 torn"><svg viewBox="0 0 200 230" role="img" aria-label="Kutya hátulról"><rect width="200" height="230" fill="#F4E637"/><rect width="200" height="230" fill="url(#dt)" opacity=".12"/>
+<g stroke="#12153A" stroke-width="3.5" stroke-linejoin="round"><path d="M40 230C36 170 50 140 70 128L62 54 90 88C100 84 116 84 124 90L148 48 150 126C176 140 184 190 180 230z" fill="#C9B52F"/>
+<path d="M84 100C96 94 118 94 130 104C150 114 152 132 140 142C120 150 96 150 80 140C70 128 72 108 84 100z" fill="#F4E637"/><path d="M62 54l8 58M148 48l-6 60" fill="none"/></g>
+<path d="M72 190C90 170 130 170 156 190" stroke="#12153A" stroke-width="4" fill="none"/><path d="M46 228C50 200 64 186 70 180M174 228C170 200 158 186 150 180M100 176v50M124 176v50" stroke="#12153A" stroke-width="2.5" fill="none"/>
+<path d="M76 138C100 160 130 160 146 138" stroke="#12153A" stroke-width="12" fill="none" opacity=".9"/><path d="M62 54l28 34-18 22zM148 48l-24 40 18 22z" fill="#12153A" opacity=".55"/>
+<rect width="200" height="230" fill="url(#dt2)" opacity=".16"/></svg></div>
+
+<div class="photo f5 torn"><svg viewBox="0 0 220 190" role="img" aria-label="Lezárt levél a küszöbön"><rect width="220" height="190" fill="#EADB3C"/>
+<rect width="220" height="120" fill="url(#sl)" opacity=".4"/><g stroke="#12153A" stroke-width="3"><path d="M0 120h220"/><path d="M0 60h220M0 120H0" opacity=".5"/><rect x="0" y="120" width="220" height="70" fill="#D8C92F"/></g><rect y="120" width="220" height="70" fill="url(#dt)" opacity=".3"/>
+<g transform="rotate(-8 112 154)" stroke="#12153A" stroke-width="3"><rect x="68" y="132" width="86" height="48" fill="#FCFAF3"/><path d="M68 132l43 28 43-28" fill="none"/></g>
+<ellipse cx="112" cy="154" rx="78" ry="34" fill="none" stroke="#E8452C" stroke-width="6"/></svg></div>
+
+<span class="hand note" style="left:36%;top:-4px;transform:rotate(-4deg)">ki járt itt az éjjel?</span>
+<span class="stamp" style="left:2%;top:30px">ÜGYSZÁM 001</span>
+</div>
+
+</div></section>
+
+<section class="about" id="rolunk"><div class="w">
+<h2>Több, mint játék</h2>
+<div class="ag" style="margin-top:36px">
+<p class="a1">Kevés fontosabb útravalót adhatunk egy fejlődő elmének annál, mint hogy megtanuljon <mark>átgondolt döntéseket hozni</mark>, és saját, aktív élettapasztalatot szerezzen arról, hogyan hatnak ezek másokra.</p>
+<p class="a2">A Tettegylet nem egy játéknak álcázott feladatlap a készségfejlesztés ígéretével, hanem valódi kaland, amelyben a döntéseknek súlyuk, a következményeknek pedig tanulságuk van.</p>
+<p class="a3">Mert egy jó játékban a fejlődés nem külön feladat, hanem az élmény természetes velejárója.</p>
+<p class="a4">Egyedül is elmerülhet benne, de közös programként te sem csak miatta fogod élvezni.<br><span class="hand">közös nyomozás, közös vacsora után</span></p>
+</div></div></section>
+
+<section class="proc" id="menete"><div class="w">
+<h2>A NYOMOZÁS MENETE</h2>
+<p class="intro">Minden hónapban kaptok egy csomagot, ami az aktuális ügy 3 fejezetét rejti. A játék során többször kulcsfontosságú döntést kell hoznia: Merre tovább? A döntéseivel új ajtót nyit ki a történetben, ami közvetlenül befolyásolja, mi vár rá a következő fejezetben.</p>
+<ol class="steps" style="list-style:none;padding-left:0;margin:0;display:grid">
+<li class="step"><div class="vis"><svg viewBox="0 0 200 150" role="img" aria-label="Lezárt boríték"><rect x="40" y="38" width="120" height="78" fill="#FCFAF3" stroke="#12153A" stroke-width="3" transform="rotate(-5 100 77)"/><path d="M40 40l60 40 60-40" fill="none" stroke="#12153A" stroke-width="3" transform="rotate(-5 100 77)"/><circle cx="100" cy="80" r="11" fill="#E8452C" transform="rotate(-5 100 77)"/></svg></div><div class="num">01</div><h3>Egy új barátság kezdete</h3><p>A gyerek levelet kap Ladártól (akit aztán senki ne merjen Aladárnak szólítani!) Jónásmellék városából, ahol természetesen mindig történik valami. Jelen esetben egy apró, de annál nagyobb hatású bűntény, aminek megoldásához segítségre van szüksége.</p></li>
+<li class="step"><div class="vis"><svg viewBox="0 0 200 150" role="img" aria-label="Bizonyítékok nagyítóval"><rect x="20" y="24" width="90" height="70" fill="#F2E34A" stroke="#12153A" stroke-width="3" transform="rotate(-6 65 59)"/><rect x="80" y="40" width="90" height="70" fill="#FCFAF3" stroke="#12153A" stroke-width="3" transform="rotate(5 125 75)"/><path d="M95 60h60M95 74h50M95 88h40" stroke="#12153A" stroke-width="3" transform="rotate(5 125 75)"/><circle cx="130" cy="68" r="26" fill="rgba(255,232,26,.3)" stroke="#12153A" stroke-width="5"/><path d="M150 88l24 26" stroke="#12153A" stroke-width="8"/><ellipse cx="48" cy="58" rx="22" ry="14" fill="none" stroke="#E8452C" stroke-width="4"/></svg></div><div class="num">02</div><h3>Átnézi a bizonyítékokat</h3><p>Elmerül a kapott dokumentumokban és képekben, és felszínre tör belőle a nyomozó. Azonosítja a kulcsfontosságú nyomokat és következtetéseket von le. Ki a gyanúsítottja? Mi lehetett az indíték?</p></li>
+<li class="step"><div class="vis"><svg viewBox="0 0 200 150" role="img" aria-label="Elágazó döntési út"><g fill="none" stroke="#12153A" stroke-width="4"><path d="M100 138V80M100 80L45 40M100 80l55-40"/><path d="M45 40l2 14M45 40l14 3M155 40l-2 14M155 40l-14 3"/></g><g fill="#F2E34A" stroke="#12153A" stroke-width="3"><rect x="14" y="14" width="56" height="26"/><rect x="130" y="14" width="56" height="26"/></g><text x="42" y="32" font-size="11" font-family="Caveat" text-anchor="middle">kit hallgat ki?</text><text x="158" y="32" font-size="11" font-family="Caveat" text-anchor="middle">merre tovább?</text><circle cx="100" cy="80" r="26" fill="none" stroke="#E8452C" stroke-width="4"/></svg></div><div class="num">03</div><h3>Átveszi az irányítást</h3><p>Nem kell tétlenül várnia, hogy a történet megadja a válaszokat. Ő dönti el, Ladár merre induljon, kit hallgasson ki, és kitől kérjen segítséget.</p></li>
+<li class="step"><div class="vis"><svg viewBox="0 0 200 150" role="img" aria-label="Lezárt ügyirat pecséttel"><rect x="40" y="20" width="120" height="110" fill="#FCFAF3" stroke="#12153A" stroke-width="3"/><path d="M56 44h88M56 58h88M56 72h60" stroke="#12153A" stroke-width="3"/><g transform="rotate(-14 120 100)" fill="none" stroke="#E8452C" stroke-width="4"><rect x="72" y="82" width="104" height="34"/></g><text x="124" y="106" font-size="17" font-weight="800" font-family="Bricolage Grotesque" fill="#E8452C" text-anchor="middle" transform="rotate(-14 124 100)">LEZÁRVA</text></svg></div><div class="num">04</div><h3>Lezárja az ügyet</h3><p>A nyomozás végén mérlegeli a bizonyítékokat, megnevezi a tettest, majd jöhet a nagy leleplezés. A végére nem egyszerűen megismer egy történetet: a saját útját járja végig benne - és lesz miről mesélnie.</p></li>
+</ol></div></section>
+
+<section class="ages"><div class="w">
+<h2 class="h">Három változat, ugyanaz a kaland</h2>
+<div class="d"><p>Nem minden gyereknek ugyanannyi segítséggel élvezetes a nyomozás — és ezt nem pusztán az életkora dönti el. Ezért minden ügyet három változatban készítünk el: a történet és a rejtély közös, csak a megfogalmazás és a kapaszkodók mennyisége változik. A fiatalabbaknak rövidebb mondatok és több támpont segít összekapcsolni a nyomokat, az idősebbeknek több teret hagyunk az önálló következtetésekre.</p>
+<p>Az első csomagot a gyerek életkorához igazítjuk. Ha túl sok vagy túl kevés a segítség, elég írnod nekünk, és a következő ügytől válthattok bármelyik irányba. Nem marad ki semmi, és nem kell újrajátszani semmit: a váltás nem előléptetés vagy visszalépés, csupán igazítás ahhoz, ahogyan a legjobban szeret játszani.</p></div>
+<div class="cards">
+<div class="age"><div class="big">9–10 <small>év</small></div><div class="tag">több kapaszkodó</div><div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+<div class="age"><div class="big">11–12 <small>év</small></div><div class="tag">kiegyensúlyozott</div><div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div></div>
+<div class="age"><div class="big">13–15 <small>év</small></div><div class="tag">több tér a következtetésre</div><div class="bars" aria-hidden="true"><i class="on"></i><i></i><i></i></div></div>
+</div>
+<div class="key"><u>Egy csomagot rendelsz</u>, nem egy nehézségi szintet.<span class="hand">ugyanaz a rejtély, más kapaszkodók</span></div>
+<p class="sup">Ha különböző korú gyerekek együtt nyomoznak, az idősebb korosztályának megfelelő változatot javasoljuk kiindulópontként.</p>
+</div></section>
+
+<section class="case" id="elso-ugy"><div class="w cg">
+<div><h2>Első ügy</h2>
+<p style="margin-top:20px;font-size:1.15rem">Minden a levéllel kezdődik: Ladár Jónásmellékről ír, ahol egy apró, de annál nagyobb hatású bűntény történt. A többit a gyerek deríti ki.</p>
+<p>Az ügyirat részletes bemutatója hamarosan itt lesz.</p>
+<a class="btn p" href="#kapcsolat">KÉREM ÉRTESÍTÉST AZ ÜGYRŐL</a></div>
+<div class="file"><div class="tab">ÜGYIRAT 001</div>
+<dl><dt>Feladó</dt><dd>Ladár, Jónásmellék</dd><dt>Helyszín</dt><dd>Jónásmellék</dd><dt>Fejezetek</dt><dd>3</dd><dt>Gyanúsított</dt><dd class="ph">[a nyomozás során derül ki]</dd><dt>Indíték</dt><dd class="ph">[a nyomozás során derül ki]</dd><dt>Előnézet</dt><dd class="ph">[helyőrző – ügyiratkép]</dd></dl>
+<span class="hand" style="display:block;margin-top:18px;transform:rotate(-3deg)">„Aladárnak szólítani tilos!”</span></div>
+</div></section>
+
+<section class="sub" id="elofizetes"><div class="w"><div class="box">
+<div class="l"><h2>Havonta egy új ügy, postán</h2>
+<ul><li>Minden hónapban egy csomag, az aktuális ügy 3 fejezetével</li><li>Három változat: 9–10, 11–12 és 13–15 év</li><li>Később bármikor válthattok másik változatra – csak írj nekünk</li></ul></div>
+<div class="r"><div class="pr">4990 Ft</div><div>/ hónap + szállítás (990 Ft – 1990 Ft között)</div><div style="margin-top:22px"><a class="btn p" href="#kapcsolat" style="display:block;text-align:center">ELŐFIZETÉS</a></div></div>
+</div></div></section>
+
+<section class="beh" id="mogotte"><div class="w">
+<h2>Mi van mögötte</h2>
+<div class="bg3"><div><p class="bq">Valós eseteken alapuló, könnyed bűnügyi játék, ahol a döntéseknek súlyuk, a következményeknek tanulságuk van.</p>
+<p style="margin-top:24px">A Tettegylet célja, hogy a gyerekek átgondolt döntéseket hozzanak, és közben saját élményt szerezzenek arról, hogyan hatnak ezek másokra – anélkül, hogy iskolai feladatnak érződne.</p></div>
+<div class="phd"><span class="hand" style="color:var(--muted)">helyőrző</span><p style="margin:8px 0 0">Itt jöhet a készítők története, a valós esetek feldolgozásának módja és a szerzők bemutatása. A tartalmat az ügyfél pótolja.</p></div></div>
+</div></section>
+
+<section id="kapcsolat"><div class="w cf">
+<div><h2>Kapcsolat</h2><p style="margin-top:20px">Kérdésed van, vagy másik életkori változatra váltanál? Írj nekünk.</p><p class="hand">[e-mail cím és elérhetőség helyőrző]</p></div>
+<form id="f" novalidate><label>Név<input name="n" autocomplete="name" required></label><label>E-mail<input name="e" type="email" autocomplete="email" required></label><label>Üzenet<textarea name="m" required></textarea></label><button class="btn p" type="submit">ÜZENET KÜLDÉSE</button><div class="ok" id="ok" role="status">Köszönjük! (Bemutató űrlap – az elküldés még nincs bekötve.)</div></form>
+</div></section>
+</main>
+
+<footer><div class="w fb"><div><a class="logo" href="#fooldal">TETTEGYLET</a><p style="margin-top:8px;max-width:22em">Havonta postázott bűnügyi játék 9–15 éveseknek.</p></div>
+<ul><li><a href="#fooldal">Főoldal</a></li><li><a href="#rolunk">Rólunk</a></li><li><a href="#mogotte">Mi van mögötte</a></li><li><a href="#elso-ugy">Első ügy</a></li><li><a href="#elofizetes">Előfizetés</a></li><li><a href="#kapcsolat">Kapcsolat</a></li></ul>
+<small style="width:100%">© Tettegylet</small></div></footer>
+<script>
+var b=document.querySelector('.mt'),m=document.getElementById('menu');
+b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+m.addEventListener('click',function(e){if(e.target.tagName==='A'){m.classList.remove('open');b.setAttribute('aria-expanded',false)}});
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').style.display='block'});
+</script>
+</body>
+</html>
